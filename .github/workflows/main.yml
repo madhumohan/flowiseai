@@ -28,4 +28,4 @@ jobs:
       with:
         context: DockerFileFolder/
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/flowiseai/nginx-img:latest
+        tags: madhumohan/flowiseai/nginx-img:latest:latest
