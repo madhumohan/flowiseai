@@ -1,0 +1,37 @@
+name: Deploy to Ubuntu Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build and push Docker image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        #docker build -t your-dockerhub-username/your-image-name:latest .
+		docker build -t madhumohan/nginx-img -f Dockerfile-nginx .
+        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+        #docker push your-dockerhub-username/your-image-name:latest
+        docker push madhumohan/nginx-img
+    
+    - name: Deploy to Ubuntu server
+      #uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@main
+      with:
+        #host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          docker pull madhumohan/nginx-img
+          docker stop nginx-container || true
+          docker rm nginx-container || true
+          docker run -d --name nginx-container -p 8089:80 madhumohan/nginx-img
