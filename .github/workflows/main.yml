@@ -20,7 +20,7 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Deploy
-      uses: flowiseai/ssh-action@v0.1.10
+      uses: actions/checkout@v2
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.HOST_USERNAME }}
