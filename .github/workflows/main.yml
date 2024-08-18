@@ -26,4 +26,4 @@ jobs:
         username: ${{ secrets.HOST_USERNAME }}
         password: ${{ secrets.HOST_PASSWORD }}
         port: 22
-        script: 'cd /home/engteam/GitHubActions/DockerFileFolder && docker build -t nginx-cust-img .'
+        script: 'cd /home/engteam/GitHubActions/DockerFileFolder && ls -ltr'
