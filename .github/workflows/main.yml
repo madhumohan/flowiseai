@@ -36,3 +36,8 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/nginx-cons-img:latest
         #tags: ${{ secrets.DOCKERHUB_USERNAME }}/flowiseai/nginx-cons-img:latest
+    
+    - name: Run Docker container
+      run: |
+          #docker pull ${{ secrets.DOCKERHUB_USERNAME }}/your-repo-name:latest
+          docker run -d --name my-nginx-con ${{ secrets.DOCKERHUB_USERNAME }}/nginx-cons-img:latest
