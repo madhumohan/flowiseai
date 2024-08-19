@@ -20,9 +20,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
-    - name: Build and Push Image
-      uses: actions/checkout@v1
-      run: |
-        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "madhumohan" --password-stdin
-        docker image build -t madhumohan/flowiseai/nginx-cost-img:latest
-		docker push madhumohan/flowiseai/nginx-cost-img:latest
+    - uses: actions/checkout@v3
+
+    - name: Build the Docker image
+      run: docker build -t nginx-cons-img .
