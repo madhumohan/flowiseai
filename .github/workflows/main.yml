@@ -30,6 +30,8 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push image to Docker Hub
-      run: |
-        docker tag madhumohan/flowiseai/nginx-cons-img:latest
-        docker push madhumohan/flowiseai/nginx-cons-img:latest
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/flowiseai/nginx-cons-img:latest
